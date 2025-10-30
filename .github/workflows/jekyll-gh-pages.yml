@@ -1,23 +1,20 @@
-name: Deploy React to GitHub Pages
+name: Deploy React Vite to GitHub Pages
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
-# Permisos necesarios para GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Evitar despliegues concurrentes
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Job de construcción
   build:
     runs-on: ubuntu-latest
     steps:
@@ -42,10 +39,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Aquí especificas que use la carpeta dist
-          path: ./dist
+          path: ./dist  # Vite genera automáticamente esta carpeta
 
-  # Job de despliegue
   deploy:
     environment:
       name: github-pages
